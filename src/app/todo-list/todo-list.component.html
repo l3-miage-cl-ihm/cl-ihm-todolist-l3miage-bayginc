@@ -1,0 +1,40 @@
+<section class="todoapp">
+    <header class="header">
+      <h1>{{(tdlService.observable | async)!.label}}</h1>
+      
+      <form #donne="ngForm" (ngSubmit)="onSumbit(donne)">
+        <input  name        = "newTodoInput"
+                class       = "new-todo"
+                placeholder = "Que faire?"
+                autofocus #lab ngModel />
+      </form>
+    </header>
+    <section class="main">
+      <input  class="toggle-all"
+              type="checkbox"
+              name="toggleAll"
+      />
+      <label for="toggleAll">Mark all as complete</label>
+      <ul *ngIf="tdlService.observable | async as tdls" class="todo-list" >
+        <li  *ngFor="let item of tdls.items; trackBy:trackById"  >
+            <app-todo-item [value]="item"></app-todo-item>
+        </li>
+      </ul>
+    </section>
+    <footer class="footer">
+      <span class="todo-count"><strong></strong> restantes</span>
+      <ul class="filters">
+        <li>
+          <a class="filterAll">Tous</a>
+        </li>
+        <li>
+          <a class="filterActives">Actifs</a>
+        </li>
+        <li>
+          <a class="filterCompleted">Complétés</a>
+        </li>
+      </ul>
+      <button class="clear-completed">Supprimer cochées</button>
+    </footer>
+    
+  </section>  

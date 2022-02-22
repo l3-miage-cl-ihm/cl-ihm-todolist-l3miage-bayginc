@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HistoryService } from './history.service';
 
 export interface TodoItem {
   readonly label: string;
   readonly isDone: boolean;
   readonly id: number;
 }
+
 
 export interface TodoList {
   readonly label: string;
@@ -18,10 +20,17 @@ let idItem = 0;
   providedIn: 'root'
 })
 export class TodolistService {
-  private subj = new BehaviorSubject<TodoList>({label: 'L3 MIAGE', items: [] });
-  readonly observable = this.subj.asObservable();
+  private subj;
+  readonly observable;
 
   constructor() {
+    let local : any[]= [];// JSON.parse(localStorage.getItem("stockage") ??"");
+    this.subj = new BehaviorSubject<TodoList>({label: 'L3 MIAGE', items:  [] });
+    this.observable = this.subj.asObservable();
+
+    this.observable.subscribe((items)=>{
+      localStorage.setItem("stockage", JSON.stringify(items));
+    });
   }
 
   create(...labels: readonly string[]): this {

@@ -1,2 +1,16 @@
-<h1>TP TodoList</h1>
+<!--<form #donne="ngForm" (ngSubmit)="onSumbit(donne)"> 
+    <input type="text" name="monitem" ngModel />
+    <input type="submit" value="Envoyer l'item" >
+</form>
 
+<ul *ngIf="tdlService.observable | async as tdls" >
+    <li *ngFor="let item of tdls.items; trackBy:trackById">
+        <input type="checkbox" [ngModel]='item.isDone' (ngModelChange)="tdlService.update({ isDone: $event }, item)" />
+        <input type="text" [ngModel]="item.label" (ngModelChange)="tdlService.update({label:$event}, item)"/>
+        <input type="button" value="Delete" (click)="tdlService.delete(item)"/>
+    </li>
+</ul>
+
+<pre>{{liststorage | json}}</pre>-->
+
+<app-todo-list></app-todo-list>
