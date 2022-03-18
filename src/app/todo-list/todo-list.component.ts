@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { TodoItem, TodolistService } from '../todolist.service';
+import { TodoItem, TodoList, TodolistService } from '../todolist.service';
+
 
 @Component({
-  selector: 'app-todo-list',
+  selector: 'todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,5 +24,15 @@ export class TodoListComponent implements OnInit {
 
   trackById(i: number, e:TodoItem):number{
     return e.id;
+  }
+
+  removeItem(t: TodoItem){
+    console.log("abc" + t.label);
+    this.tdlService.delete(t);
+  }
+
+  updateItem(t: Partial<TodoItem>, old:TodoItem){
+    console.log(t.label);
+    this.tdlService.update(t, old);
   }
 }
