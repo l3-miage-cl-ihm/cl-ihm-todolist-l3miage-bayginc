@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { HistoryService } from './history.service';
 import { TodoItem, TodolistService } from './todolist.service';
 
@@ -13,20 +14,10 @@ export class AppComponent {
   @Input() inputText: string | undefined;
   liststorage = 'test';
 
+  @Output() play = new EventEmitter<number>();
+
   constructor(public tdlService: TodolistService) {
-    
+     
   }
-
-
-
-  onSumbit(donne: NgForm) {
-    this. tdlService.create(donne.value['monitem']);
-  }
-
-
-  trackById(i: number, e:TodoItem):number{
-    return e.id;
-  }
-
 
 }

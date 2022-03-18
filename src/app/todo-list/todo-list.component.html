@@ -17,7 +17,7 @@
       <label for="toggleAll">Mark all as complete</label>
       <ul *ngIf="tdlService.observable | async as tdls" class="todo-list" >
         <li  *ngFor="let item of tdls.items; trackBy:trackById"  >
-            <app-todo-item [value]="item"></app-todo-item>
+            <app-todo-item [value]="item" (remove)="removeItem($event)" (update)="updateItem($event, item)" ></app-todo-item>
         </li>
       </ul>
     </section>

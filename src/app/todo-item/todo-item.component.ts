@@ -11,14 +11,21 @@ export class TodoItemComponent implements OnInit {
   @Input() value! : TodoItem;
   @Output() update = new EventEmitter<Partial<TodoItem>>();
   @Output() remove = new EventEmitter<TodoItem>();
+  editText="";
 
   constructor() {
-
-    this.remove.subscribe((item)=>console.log('remove'+item.label));
     
   }
 
   ngOnInit(): void {
+  }
+
+  removeItem(){
+    this.remove.emit(this.value);
+  }
+
+  updateItem(){
+    this.update.emit( {...this.value,label:this.editText } as Partial<TodoItem>);
   }
 
 }

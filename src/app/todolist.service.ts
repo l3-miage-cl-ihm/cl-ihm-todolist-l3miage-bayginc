@@ -24,12 +24,13 @@ export class TodolistService {
   readonly observable;
 
   constructor() {
-    let local : any[]= [];// JSON.parse(localStorage.getItem("stockage") ??"");
-    this.subj = new BehaviorSubject<TodoList>({label: 'L3 MIAGE', items:  [] });
+    let local : TodoItem[]= JSON.parse(localStorage.getItem("stockage") ??"");
+    this.subj = new BehaviorSubject<TodoList>({label: 'L3 MIAGE', items:  local });
     this.observable = this.subj.asObservable();
 
     this.observable.subscribe((items)=>{
-      localStorage.setItem("stockage", JSON.stringify(items));
+      localStorage.setItem("stockage", JSON.stringify(items.items));
+      console.log(items);
     });
   }
 
@@ -53,6 +54,8 @@ export class TodolistService {
       ...L,
       items: L.items.filter(item => items.indexOf(item) === -1 )
     } );
+
+
     return this;
   }
 
