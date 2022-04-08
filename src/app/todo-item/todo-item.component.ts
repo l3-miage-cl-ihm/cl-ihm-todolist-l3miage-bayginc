@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { TodoItem } from '../todolist.service';
 
 @Component({
-  selector: 'app-todo-item',
+  selector: 'app-todo-item', 
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -11,7 +11,7 @@ export class TodoItemComponent implements OnInit {
   @Input() value! : TodoItem;
   @Output() update = new EventEmitter<Partial<TodoItem>>();
   @Output() remove = new EventEmitter<TodoItem>();
-  editText="";
+  @Output() edit = new EventEmitter<[boolean, number]>();
 
   constructor() {
     
@@ -24,8 +24,13 @@ export class TodoItemComponent implements OnInit {
     this.remove.emit(this.value);
   }
 
-  updateItem(){
-    this.update.emit( {...this.value,label:this.editText } as Partial<TodoItem>);
+  toggle() : void{
+    this.edit.emit([true,this.value.id]);
+  }
+
+  UPDATE(item : Partial<TodoItem>) : void{
+    this.update.emit(item);
+    this.edit.emit([false,-1]);
   }
 
 }

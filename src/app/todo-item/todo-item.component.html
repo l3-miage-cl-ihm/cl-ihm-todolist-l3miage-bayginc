@@ -1,16 +1,22 @@
-<li class="view">
-    <input  class = "toggle"
-            type  = "checkbox"
-            name  = "done"
-    />
-    <label  class="texte">{{value!.label}}</label>
-    <button class="destroy" (click)="removeItem()"></button>
-</li>
-  <form>
-    <input  #newTextInput
-            name      = "newTextInput"
-            class     = "edit"
-            [(ngModel)] ="editText"
-            (change)="updateItem()"
-    />
-  </form>  
+<div class="view">
+  <input
+    class="toggle"
+    type="checkbox"
+    name="done"
+    [ngModel]="value.isDone"
+    (ngModelChange)="update.emit({ isDone: $event })"
+  />
+  <label class="texte" (dblclick)="toggle()">
+    {{ value!.label }}
+  </label>
+  <button class="destroy" (click)="remove.emit(value)"></button>
+</div>
+<form (submit)="UPDATE({ label: newTextInput.value })">
+  <input
+    #newTextInput
+    name="newTextInput"
+    class="edit"
+    [ngModel]="value.label"
+    autofocus
+  />
+</form>

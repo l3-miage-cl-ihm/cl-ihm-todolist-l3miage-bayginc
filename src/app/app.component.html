@@ -12,5 +12,14 @@
 </ul>
 
 <pre>{{liststorage | json}}</pre>-->
+<div *ngIf="auth.user | async as user; else showLogin">
+    <h1>Hello {{ user.displayName }}!</h1>
+    <img src="{{user.photoURL}}" width="50" height="50"/>
+    <button (click)="logout()">Se déconnecter</button>
+  </div>
+  <ng-template #showLogin>
+    <p>Merci de vous connecter </p>
+    <button (click)="login()">Se connecter avec Google</button>
+  </ng-template>
 
-<todo-list></todo-list>
+  <app-todo-list></app-todo-list>

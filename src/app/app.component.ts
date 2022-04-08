@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
-
-import { HistoryService } from './history.service';
-import { TodoItem, TodolistService } from './todolist.service';
+import { Component } from '@angular/core';
+import { TodolistService } from './todolist.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +10,18 @@ import { TodoItem, TodolistService } from './todolist.service';
 })
 export class AppComponent {
   title = 'l3m-tpX-todolist-angular-y2022';
-  @Input() inputText: string | undefined;
   liststorage = 'test';
 
-  @Output() play = new EventEmitter<number>();
 
-  constructor(public tdlService: TodolistService) {
-     
+  constructor(public tdlService: TodolistService, public auth: AngularFireAuth) {
+  }
+
+
+  login() {
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.auth.signOut();
   }
 
 }
